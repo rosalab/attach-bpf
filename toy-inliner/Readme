@@ -1,0 +1,5 @@
+A toy implementation for a binary inliner and rewriter.
+Takes in 3 functions: {entry, exit, main} and rewrites main
+    to call entry before main, and exit after main.
+Each function is x86 binary.
+Writes the result to an executable.
