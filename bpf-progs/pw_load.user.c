@@ -57,9 +57,11 @@ int main(int argc, char *argv[])
     printf("PID: %d\n", getpid());
 
     getchar();
+    
+    bpf_program__attach_pw(program1, program2);
 
-    bpf_program__attach(program1);
-    bpf_program__attach(program2);
+//    bpf_program__attach(program1);
+ //   bpf_program__attach(program2);
 
     while (1) {
         sleep(1);
