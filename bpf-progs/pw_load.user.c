@@ -24,8 +24,23 @@ int main(int argc, char *argv[])
     char * exit_prog_name = argv[3];
 
     // Open the shared1.kern object
-    struct bpf_object * prog = bpf_object__open(bpf_path);
+    LIBBPF_OPTS(bpf_object_open_opts, open_opts);
+    open_opts.pw = true;
+    struct bpf_object * prog = bpf_object__open_file(bpf_path, &open_opts);
     
+
+    struct bpf_program * program1 = bpf_object__find_program_by_name(prog, entry_prog_name);
+    struct bpf_program * program2 = bpf_object__find_program_by_name(prog, exit_prog_name);
+
+    // Mark entry and exit programs
+    bpf_program__set_pw(program1, BPF_PW_ENTRY);
+    bpf_program__set_pw(program2, BPF_PW_EXIT);
+
+    // Mark entry and exit prog/get from annotation
+    // Load entry and exit (they are connected together from load time)
+    
+    // Attach together
+
     // Try and load this program
     // This should make the map we need
     if (bpf_object__load(prog)) {
@@ -33,8 +48,6 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    struct bpf_program * program1 = bpf_object__find_program_by_name(prog, entry_prog_name);
-    struct bpf_program * program2 = bpf_object__find_program_by_name(prog, exit_prog_name);
 
     if (program1 == NULL || program2 == NULL) {
         printf("Failed to find progs\n");
