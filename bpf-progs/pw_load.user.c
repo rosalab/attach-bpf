@@ -33,8 +33,18 @@ int main(int argc, char *argv[])
     struct bpf_program * program2 = bpf_object__find_program_by_name(prog, exit_prog_name);
 
     // Mark entry and exit programs
-    bpf_program__set_pw(program1, BPF_PW_ENTRY);
-    bpf_program__set_pw(program2, BPF_PW_EXIT);
+    //
+    struct bpf_pw_info entry_info;
+    struct bpf_pw_info exit_info;
+
+    entry_info.pw_state = BPF_PW_ENTRY;
+    entry_info.pw_stack_size = 8;
+
+    exit_info.pw_state = BPF_PW_EXIT;
+    exit_info.pw_stack_size = 8;
+
+    bpf_program__set_pw(program1, &entry_info);
+    bpf_program__set_pw(program2, &exit_info);
 
     // Mark entry and exit prog/get from annotation
     // Load entry and exit (they are connected together from load time)
