@@ -12,11 +12,24 @@ struct {
     __type(value, __u64);
 } starts SEC(".maps");
 
+struct my_data {
+    u32 random_val;
+    u32 id;
+};
+
 static void entry(void * ctx)
 {
-    __u32 tid = bpf_get_current_pid_tgid();
-    u64 val = 0xdeadbeef;
-    bpf_set_shared(ctx, &val, 8);
+    //u64 addr = 0;
+    struct my_data *d;
+    d = (struct my_data *)bpf_get_shared(ctx);
+    d->random_val = bpf_get_prandom_u32();
+    d->id = bpf_get_current_pid_tgid() >> 32;
+    //bpf_printk("Hello\n");
+    //if (addr == 1) {
+    //}
+    //*(u64 *)addr = 0xdeadbeef;
+    //*stack = 0xdeadbeef;
+    
     //bpf_map_update_elem(&starts, &tid, &val, BPF_ANY);
     //bpf_get_shared(ctx, &t);
     //bpf_printk("Getting Shared after setting: %llx\n", t);
@@ -31,15 +44,13 @@ int dummy_fentry(void * ctx)
 
 static void exit(void * ctx)
 {
-    u64 val = 0;
-    u64 * valp;
-
-    __u32 tid = (__u32)bpf_get_current_pid_tgid();
+    struct my_data * d;
     //valp = bpf_map_lookup_elem(&starts, &tid);
     //if (!valp) 
     //    return;
     
-    bpf_get_shared(ctx, &val, 8);
+    d = (struct my_data *)bpf_get_shared(ctx);
+    bpf_printk("Id: %u Value: %u\n", d->id, d->random_val);
 
     //bpf_map_delete_elem(&starts, &tid);
      
