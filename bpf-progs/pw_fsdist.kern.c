@@ -44,7 +44,7 @@ static int probe_return(void * ctx, enum fs_file_op op)
 
     
     tsp = (__u64*)bpf_get_shared(ctx);
-    bpf_printk("Start: %llu End: %llu\n", *tsp, ts);
+    //bpf_printk("Start: %llu End: %llu\n", *tsp, ts);
 	//tsp = bpf_map_lookup_elem(&starts, &tid);
 	//if (!tsp)
 	//	return 0;
