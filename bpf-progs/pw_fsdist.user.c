@@ -7,7 +7,6 @@
 #include <bpf/bpf.h>
 #include <bpf/libbpf.h>
 
-#include "trace_helpers.h"
 #include "fsdist.h"
 
 #define min(x, y) ({				\
@@ -157,7 +156,7 @@ int main()
     for (enum fs_file_op op = F_READ; op < F_MAX_OP; op++) {
         struct hist hist = hists[op];
         printf("operation = '%s'\n", file_op_names[op]);
-        print_log2_hist(hist.slots, MAX_SLOTS, "msecs");
+        print_log2_hist(hist.slots, MAX_SLOTS, "usecs");
         printf("\n");
     }
 
