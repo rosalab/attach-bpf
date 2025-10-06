@@ -12,7 +12,8 @@ uint64_t run()
     char buf[256];
     clock_gettime(CLOCK_MONOTONIC_RAW, &begin);
     for (int i = 0; i < 1000000; i++) {
-        open("/dev/null", O_RDONLY, 0);
+       // open("/dev/null", O_RDONLY, 0);
+       getcwd(buf, 256);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);
 

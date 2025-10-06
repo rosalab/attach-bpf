@@ -46,6 +46,9 @@ int main(int argc, char *argv[])
     bpf_program__set_pw(program1, &entry_info);
     bpf_program__set_pw(program2, &exit_info);
 
+    bpf_program__set_color(program1, 0x2);
+    bpf_program__set_color(program2, 0x2);
+
     // Mark entry and exit prog/get from annotation
     // Load entry and exit (they are connected together from load time)
     
