@@ -132,10 +132,13 @@ int main(int argc, char *argv[])
 
     getchar();
     __u8 one = 1;
+    __u8 zero = 0;
+    __u32 getcwd = 79;
 
     for (int i = 0; i < 600; i++) {
         bpf_map__update_elem(trace_syscall, &i, 4, &one, 1, 0);
     }
+    //bpf_map__update_elem(trace_syscall, &getcwd, 4, &one, 1, 0);
 
     bpf_program__attach(program_entry);
     bpf_program__attach(program_exit);

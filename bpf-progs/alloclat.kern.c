@@ -54,7 +54,7 @@ static void entry(void)
     u8 * to_trace = (u8 *)bpf_map_lookup_elem(&trace_syscall, syscall_num);
     if (to_trace == NULL)
         return;
-    //bpf_printk("Syscall was %ld and Trace was %d\n", *syscall_num, *to_trace);
+    //bpf_printk("Syscall was %ld\n", *syscall_num);
     if (*to_trace) {
 	    nsec = bpf_ktime_get_ns();
     	bpf_map_update_elem(&starts, &pid, &nsec, BPF_ANY);
