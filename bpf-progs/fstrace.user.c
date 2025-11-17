@@ -84,6 +84,24 @@ void print_log2_hist(unsigned int *vals, int vals_size, const char *val_type)
 	}
 }
 
+int handle_event(void *ctx, void *data, size_t data_sz)
+{
+    char * ev = (char*)data;
+    printf("%s\n", ev);
+	//const struct event *e = data;
+	//struct tm *tm;
+	//char ts[32];
+	//time_t t;
+
+	//time(&t);
+	//tm = localtime(&t);
+	//strftime(ts, sizeof(ts), "%H:%M:%S", tm);
+
+	//printf("%-8s %-5s %-7d %-16s %s\n", ts, "EXEC", e->pid, e->comm, e->filename);
+
+	return 0;
+}
+
 struct hist hists;
 int main(int argc, char *argv[])
 {
@@ -122,12 +140,16 @@ int main(int argc, char *argv[])
 
     //struct bpf_program * program_entry = bpf_object__find_program_by_name(prog, entry);
     //struct bpf_program * program_exit = bpf_object__find_program_by_name(prog, exit);
-    struct bpf_program * sys_trace = bpf_object__find_program_by_name(prog, trace);
-    struct bpf_program * open_enter = bpf_object__find_program_by_name(prog, trace_open_enter);
-    struct bpf_program * open_exit = bpf_object__find_program_by_name(prog, trace_open_exit);
-    struct bpf_program * path_init = bpf_object__find_program_by_name(prog, "trace_path_init");
+    //struct bpf_program * sys_trace = bpf_object__find_program_by_name(prog, trace);
+    struct bpf_program * trace_open = bpf_object__find_program_by_name(prog, "trace_open_exit");
+    //struct bpf_program * open_exit = bpf_object__find_program_by_name(prog, trace_open_exit);
     struct bpf_program * trace_read = bpf_object__find_program_by_name(prog, "trace_sys_read");
     struct bpf_program * trace_write = bpf_object__find_program_by_name(prog, "trace_sys_write");
+
+    struct bpf_map * rb_map = bpf_object__find_map_by_name(prog, "rbuf");
+    struct ring_buffer * rb = NULL;
+
+    rb = ring_buffer__new(bpf_map__fd(rb_map), handle_event, NULL, NULL);
 
     //bpf_program__set_color(program_entry, 0x2);
     //bpf_program__set_color(program_exit, 0x2);
@@ -173,21 +195,21 @@ int main(int argc, char *argv[])
         libbpf_strerror(errno, err, 256);
         printf("Failed to attach trace_sys_read: %s\n", err);
     }
-    if(!bpf_program__attach(sys_trace)) {
+    //if(!bpf_program__attach(sys_trace)) {
+    //    char err[256];
+    //    libbpf_strerror(errno, err, 256);
+    //    printf("Failed to attach sys_trace: %s\n", err);
+    //}
+    if(!bpf_program__attach(trace_open)) {
         char err[256];
         libbpf_strerror(errno, err, 256);
-        printf("Failed to attach sys_trace: %s\n", err);
+        printf("Failed to attach trace_open_enter: %s\n", err);
     }
-    if(!bpf_program__attach(open_enter)) {
-        char err[256];
-        libbpf_strerror(errno, err, 256);
-        printf("Failed to attach open_enter: %s\n", err);
-    }
-    if(!bpf_program__attach(open_exit)) {
-        char err[256];
-        libbpf_strerror(errno, err, 256);
-        printf("Failed to attach open_exit: %s\n", err);
-    }
+    //if(!bpf_program__attach(open_exit)) {
+    //    char err[256];
+    //    libbpf_strerror(errno, err, 256);
+    //    printf("Failed to attach open_exit: %s\n", err);
+    //}
     //if(!bpf_program__attach(path_init)) {
     //    char err[256];
     //    libbpf_strerror(errno, err, 256);
@@ -195,7 +217,8 @@ int main(int argc, char *argv[])
     //}
 
     while (1) {
-        sleep(1);
+        ring_buffer__poll(rb, 1);
+        //sleep(1);
         if (exiting)
             break;
     }

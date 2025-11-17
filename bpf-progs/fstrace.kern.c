@@ -14,6 +14,16 @@ extern struct file *fget_raw(unsigned int fd) __ksym;
 extern int bpf_path_d_path(struct path *path, char *buf, size_t buf__sz) __ksym;
 extern void bpf_put_file(struct file *file) __ksym;
 
+const char * open_str = "PID: %d opened %s\n";
+//const char * read_str = "PID: %d read at %s with latency %ld\n";
+
+struct {
+        __uint(type, BPF_MAP_TYPE_RINGBUF);
+        __uint(max_entries, 8192);
+        __uint(key_size, 0);
+        __uint(value_size, 0);
+} rbuf SEC(".maps");
+
 struct inner_map {
         __uint(type, BPF_MAP_TYPE_HASH);
         __uint(max_entries, 4096);
@@ -55,11 +65,11 @@ struct {
 
 __u32 hist[32] = {};
 
-static inline int check_to_trace(int fd)
+static inline int check_to_trace(int fd, char * str)
 {
     u32 zero = 0;
     struct file * f;
-    char str[128];
+    //char str[128];
     // Use kfunc to get a file * for fd
     f = fget_raw(fd);
     if (!f)
@@ -94,6 +104,8 @@ int trace_open_enter(void * ctx)
     u64 filename;
     u64 ret_fd;
     char * file;
+    char str[128];
+    u64 data[3];
 
     // Get the filename we are opening
     bpf_get_func_arg(ctx, 1, &filename);
@@ -109,7 +121,14 @@ int trace_open_enter(void * ctx)
     // If matches then add the fd to the map
     bpf_get_func_ret(ctx, &ret_fd);
 
-    bpf_printk("File was %s with fd %ld\n", file, ret_fd);
+    data[0] = bpf_get_current_pid_tgid() << 32;
+    data[1] = (u64)file;
+    data[2] = 0;
+    BPF_SNPRINTF(str, 128, "PID: %d opened file at %s\n", bpf_get_current_pid_tgid() << 32, (u64)file);
+    //bpf_snprintf(str, 128, open_str, data, 3);
+    bpf_printk("%s\n", str);
+    bpf_ringbuf_output(&rbuf, &str, 128, 0);
+    //bpf_printk("File was %s with fd %ld\n", file, ret_fd);
 
 
 
@@ -122,10 +141,17 @@ SEC("fexit/do_sys_openat2")
 int trace_open_exit(void * ctx)
 {
     u64 ret_fd;
+    char str[128];
+    char file[128];
     // Get the fd we just opened
     bpf_get_func_ret(ctx, &ret_fd);
-    if (check_to_trace(ret_fd)) {
-        bpf_printk("Opened\n");
+    if (check_to_trace(ret_fd, file)) {
+        u32 pid = bpf_get_current_pid_tgid() & 0xFFFFFFFF;
+        //bpf_printk("Opened\n");
+        BPF_SNPRINTF(str, 128, "PID: %u opened file at %s\n", pid, (u64)file);
+        //bpf_printk("%s\n", str);
+        bpf_ringbuf_output(&rbuf, &str, 128, 0);
+        //bpf_printk("ringbuf ret was %ld\n");
     }
     return 0;
 }
@@ -134,9 +160,13 @@ SEC("fexit/ksys_read")
 int trace_sys_read(void * ctx)
 {
     u64 fd;
+    char str[128];
+    char file[128];
     bpf_get_func_arg(ctx, 0, &fd);
-    if (check_to_trace(fd)) {
-        bpf_printk("Read\n");
+    if (check_to_trace(fd, file)) {
+        u32 pid = bpf_get_current_pid_tgid() & 0xFFFFFFFF;
+        BPF_SNPRINTF(str, 128, "PID: %u read file at %s\n", pid, (u64)file);
+        bpf_ringbuf_output(&rbuf, &str, 128, 0);
     }
     return 0;
 }
@@ -145,29 +175,17 @@ SEC("fexit/ksys_write")
 int trace_sys_write(void * ctx)
 {
     u64 fd;
+    char str[128];
+    char file[128];
     bpf_get_func_arg(ctx, 0, &fd);
-    if (check_to_trace(fd)) {
-        bpf_printk("Write\n");
+    if (check_to_trace(fd, file)) {
+        u32 pid = bpf_get_current_pid_tgid() & 0xFFFFFFFF;
+        BPF_SNPRINTF(str, 128, "PID: %u wrote to file at %s\n", pid, (u64)file);
+        bpf_ringbuf_output(&rbuf, &str, 128, 0);
     }
     return 0;
 }
 
-
-SEC("fexit/path_init")
-int trace_path_init(void * ctx)
-{
-    u64 path_name;
-    char * path;
-    bpf_get_func_ret(ctx, &path_name);
-    path = (char *)path_name;
-    if (!path)
-        return 0;
-
-    bpf_printk("Path was %s\n");
-    return 0;
-}
-
-    
 
 //SEC("tp/syscalls/sys_exit_open")
 //int trace_open_exit(struct open_exit_ctx * exit_ctx)
