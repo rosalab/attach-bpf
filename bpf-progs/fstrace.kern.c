@@ -9,6 +9,11 @@
 
 #include "fstrace.kern.h"
 
+struct event {
+    int pid;
+};
+
+
 /* kfunc definitions */
 extern struct file *fget_raw(unsigned int fd) __ksym;
 extern int bpf_path_d_path(struct path *path, char *buf, size_t buf__sz) __ksym;
@@ -19,7 +24,7 @@ const char * open_str = "PID: %d opened %s\n";
 
 struct {
         __uint(type, BPF_MAP_TYPE_RINGBUF);
-        __uint(max_entries, 8192);
+        __uint(max_entries, 32768);
         __uint(key_size, 0);
         __uint(value_size, 0);
 } rbuf SEC(".maps");
@@ -150,7 +155,10 @@ int trace_open_exit(void * ctx)
         //bpf_printk("Opened\n");
         BPF_SNPRINTF(str, 128, "PID: %u opened file at %s\n", pid, (u64)file);
         //bpf_printk("%s\n", str);
-        bpf_ringbuf_output(&rbuf, &str, 128, 0);
+        long ret = bpf_ringbuf_output(&rbuf, &str, 128, 0);
+        if (ret) {
+            bpf_printk("Error: %ld\n", ret);
+        }
         //bpf_printk("ringbuf ret was %ld\n");
     }
     return 0;

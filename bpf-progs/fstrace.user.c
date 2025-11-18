@@ -86,8 +86,10 @@ void print_log2_hist(unsigned int *vals, int vals_size, const char *val_type)
 
 int handle_event(void *ctx, void *data, size_t data_sz)
 {
-    char * ev = (char*)data;
-    printf("%s\n", ev);
+    return 0;
+    //char * ev = (char*)data;
+    //printf("%s\n", ev);
+    //printf("Size is %ld\n", data_sz);
 	//const struct event *e = data;
 	//struct tm *tm;
 	//char ts[32];
@@ -99,7 +101,7 @@ int handle_event(void *ctx, void *data, size_t data_sz)
 
 	//printf("%-8s %-5s %-7d %-16s %s\n", ts, "EXEC", e->pid, e->comm, e->filename);
 
-	return 0;
+	//return 0;
 }
 
 struct hist hists;
