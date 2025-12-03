@@ -86,6 +86,7 @@ void print_log2_hist(unsigned int *vals, int vals_size, const char *val_type)
 
 int handle_event(void *ctx, void *data, size_t data_sz)
 {
+    printf("%s\n", data);
     return 0;
     //char * ev = (char*)data;
     //printf("%s\n", ev);
@@ -117,8 +118,8 @@ int main(int argc, char *argv[])
     char * entry = "dummy_fentry";
     char * exit  = "dummy_fexit";
     char * trace = "trace_read";
-    char * trace_open_enter = "trace_open_enter";
-    char * trace_open_exit = "trace_open_exit";
+    //char * trace_open_enter = "trace_open_enter";
+    //char * trace_open_exit = "trace_open_exit";
     //char * trace_read = "trace_sys_read";
 
     //char * bpf_path = argv[1];
@@ -143,10 +144,20 @@ int main(int argc, char *argv[])
     //struct bpf_program * program_entry = bpf_object__find_program_by_name(prog, entry);
     //struct bpf_program * program_exit = bpf_object__find_program_by_name(prog, exit);
     //struct bpf_program * sys_trace = bpf_object__find_program_by_name(prog, trace);
-    struct bpf_program * trace_open = bpf_object__find_program_by_name(prog, "trace_open_exit");
+    //struct bpf_program * trace_open = bpf_object__find_program_by_name(prog, "trace_open_exit");
     //struct bpf_program * open_exit = bpf_object__find_program_by_name(prog, trace_open_exit);
-    struct bpf_program * trace_read = bpf_object__find_program_by_name(prog, "trace_sys_read");
-    struct bpf_program * trace_write = bpf_object__find_program_by_name(prog, "trace_sys_write");
+    //struct bpf_program * trace_read = bpf_object__find_program_by_name(prog, "trace_sys_read");
+    //struct bpf_program * trace_write = bpf_object__find_program_by_name(prog, "trace_sys_write");
+
+
+    struct bpf_program * trace_sys_open_enter = bpf_object__find_program_by_name(prog, "trace_sys_open_enter");
+    struct bpf_program * trace_sys_open_exit = bpf_object__find_program_by_name(prog, "trace_sys_open_exit");
+
+    struct bpf_program * trace_sys_read_enter = bpf_object__find_program_by_name(prog, "trace_sys_read_enter");
+    struct bpf_program * trace_sys_read_exit = bpf_object__find_program_by_name(prog, "trace_sys_read_exit");
+
+    struct bpf_program * trace_sys_write_enter = bpf_object__find_program_by_name(prog, "trace_sys_write_enter");
+    struct bpf_program * trace_sys_write_exit = bpf_object__find_program_by_name(prog, "trace_sys_write_exit");
 
     struct bpf_map * rb_map = bpf_object__find_map_by_name(prog, "rbuf");
     struct ring_buffer * rb = NULL;
@@ -178,6 +189,26 @@ int main(int argc, char *argv[])
         printf("Failed to updat  map: %d %s\n", map_err, err);
     }
 
+    struct bpf_program * programs[6] = {
+        trace_sys_open_enter,
+        trace_sys_open_exit,
+        trace_sys_read_enter,
+        trace_sys_read_exit,
+        trace_sys_write_enter,
+        trace_sys_write_exit,
+    };
+
+    char err[256];
+    for (int i = 0; i < 6; i++) {
+        printf("%d\n", i);
+        if(!bpf_program__attach(programs[i])) {
+            libbpf_strerror(errno, err, 256);
+            printf("Failed to attach prog %d: %s\n", i, err);
+        }
+    }
+        
+
+        
 
 
     //for (int i = 0; i < 600; i++) {
@@ -187,26 +218,26 @@ int main(int argc, char *argv[])
 
     //bpf_program__attach(program_entry);
     //bpf_program__attach(program_exit);
-    if(!bpf_program__attach(trace_write)) {
-        char err[256];
-        libbpf_strerror(errno, err, 256);
-        printf("Failed to attach trace_sys_write: %s\n", err);
-    }
-    if(!bpf_program__attach(trace_read)) {
-        char err[256];
-        libbpf_strerror(errno, err, 256);
-        printf("Failed to attach trace_sys_read: %s\n", err);
-    }
+    //if(!bpf_program__attach(trace_write)) {
+    //    char err[256];
+    //    libbpf_strerror(errno, err, 256);
+    //    printf("Failed to attach trace_sys_write: %s\n", err);
+    //}
+    //if(!bpf_program__attach(trace_read)) {
+    //    char err[256];
+    //    libbpf_strerror(errno, err, 256);
+    //    printf("Failed to attach trace_sys_read: %s\n", err);
+    //}
     //if(!bpf_program__attach(sys_trace)) {
     //    char err[256];
     //    libbpf_strerror(errno, err, 256);
     //    printf("Failed to attach sys_trace: %s\n", err);
     //}
-    if(!bpf_program__attach(trace_open)) {
-        char err[256];
-        libbpf_strerror(errno, err, 256);
-        printf("Failed to attach trace_open_enter: %s\n", err);
-    }
+    //if(!bpf_program__attach(trace_open)) {
+    //    char err[256];
+    //    libbpf_strerror(errno, err, 256);
+    //    printf("Failed to attach trace_open_enter: %s\n", err);
+    //}
     //if(!bpf_program__attach(open_exit)) {
     //    char err[256];
     //    libbpf_strerror(errno, err, 256);
