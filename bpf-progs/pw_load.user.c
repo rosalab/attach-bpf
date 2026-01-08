@@ -38,10 +38,12 @@ int main(int argc, char *argv[])
     struct bpf_pw_info exit_info;
 
     entry_info.pw_state = BPF_PW_ENTRY;
-    entry_info.pw_stack_size = 8;
+    //entry_info.pw_stack_size = 8;
+    entry_info.pw_stack_size = 32000;
 
     exit_info.pw_state = BPF_PW_EXIT;
-    exit_info.pw_stack_size = 8;
+    //exit_info.pw_stack_size = 8;
+    exit_info.pw_stack_size = 32000;
 
     bpf_program__set_pw(program1, &entry_info);
     bpf_program__set_pw(program2, &exit_info);

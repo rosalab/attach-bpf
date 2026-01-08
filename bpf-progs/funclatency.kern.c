@@ -35,6 +35,8 @@ static void entry(void)
 	u32 pid = id;
 	u64 nsec;
 
+    bpf_printk("Entry!\n");
+
 	if (filter_cg && !bpf_current_task_under_cgroup(&cgroup_map, 0))
 		return;
 
@@ -59,6 +61,7 @@ static void exit(void)
 	u32 pid = id;
 	u64 slot, delta;
 
+    bpf_printk("Exit!\n");
 	if (filter_cg && !bpf_current_task_under_cgroup(&cgroup_map, 0))
 		return;
 

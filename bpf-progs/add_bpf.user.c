@@ -2,6 +2,7 @@
  * User program for loading a single generic program and attaching
  * Usage: ./load.user bpf_file bpf_prog_name
  */
+#include <errno.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/syscall.h>
@@ -92,9 +93,10 @@ int main(int argc, char *argv[])
     //    return -1;
     //}
 
-    char * bpf_path = "funclatency.kern.o";
+    char * bpf_path = "add_bpf.kern.o";
     char * entry = "dummy_fentry";
     char * exit  = "dummy_fexit";
+    char * trace = "sys_trace";
 
     //char * bpf_path = argv[1];
     //char * prog_name = argv[2];
@@ -111,13 +113,15 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    struct bpf_map * map_hist = bpf_object__find_map_by_name(prog, "funclate.bss");
+    struct bpf_map * map_hist = bpf_object__find_map_by_name(prog, "alloclat.bss");
+    struct bpf_map * trace_syscall = bpf_object__find_map_by_name(prog, "trace_syscall");
 
     struct bpf_program * program_entry = bpf_object__find_program_by_name(prog, entry);
     struct bpf_program * program_exit = bpf_object__find_program_by_name(prog, exit);
+    struct bpf_program * sys_trace = bpf_object__find_program_by_name(prog, "sys_trace");
 
-    bpf_program__set_color(program_entry, 0x2);
-    bpf_program__set_color(program_exit, 0x2);
+    //bpf_program__set_color(program_entry, 0x2);
+    //bpf_program__set_color(program_exit, 0x2);
 
     //if (program == NULL) {
     //    printf("Shared 1 failed\n");
@@ -127,9 +131,22 @@ int main(int argc, char *argv[])
     printf("PID: %d\n", getpid());
 
     getchar();
+    __u8 one = 1;
+    __u8 zero = 0;
+    __u32 getcwd = 79;
 
-    bpf_program__attach(program_entry);
-    bpf_program__attach(program_exit);
+    for (int i = 0; i < 600; i++) {
+        bpf_map__update_elem(trace_syscall, &i, 4, &one, 1, 0);
+    }
+    //bpf_map__update_elem(trace_syscall, &getcwd, 4, &one, 1, 0);
+
+    //bpf_program__attach(program_entry);
+    //bpf_program__attach(program_exit);
+    if(!bpf_program__attach(sys_trace)) {
+        char err[256];
+        libbpf_strerror(errno, err, 256);
+        printf("Failed to attach sys_trace: %s\n", err);
+    }
 
     while (1) {
         sleep(1);
@@ -139,7 +156,7 @@ int main(int argc, char *argv[])
 
     int idx = 0;
     bpf_map__lookup_elem(map_hist, &idx, 4, &hists, sizeof(hists), 0);
-    printf("Printing results for getcwd\n");
+    printf("Printing allocation latency histogram\n");
     print_log2_hist(hists.slots, 32, "usecs");
     return 0;
 }
