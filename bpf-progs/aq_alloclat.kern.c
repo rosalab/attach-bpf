@@ -7,39 +7,7 @@
 #include "funclatency.h"
 #include "bits.bpf.h"
 
-/* key: pid.  value: start time */
-//struct {
-//	__uint(type, BPF_MAP_TYPE_HASH);
-//	__uint(max_entries, MAX_PIDS);
-//	__type(key, u32);
-//	__type(value, u64);
-//} starts SEC(".maps");
-
-//struct {
-//	__uint(type, BPF_MAP_TYPE_HASH);
-//	__uint(max_entries, MAX_PIDS);
-//	__type(key, u32);
-//	__type(value, u64);
-//} syscall SEC(".maps");
-
-//struct {
-//	__uint(type, BPF_MAP_TYPE_ARRAY);
-//	__uint(max_entries, 600);
-//	__type(key, u32);
-//	__type(value, u8);
-//} trace_syscall SEC(".maps");
-
 __u32 hist[32] = {};
-
-/* Do not need extra syscall BPF program */
-//SEC("tp_btf/sys_enter")
-//int BPF_PROG(sys_trace, struct pt_regs * pt, long syscall_id)
-//{
-//    u64 id = bpf_get_current_pid_tgid();
-//    u32 pid = id;
-//    bpf_map_update_elem(&syscall, &pid, &syscall_id, BPF_ANY);
-//    return 0;
-//}
 
 static void entry(void *ctx)
 {

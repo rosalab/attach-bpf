@@ -132,13 +132,25 @@ int main(int argc, char *argv[])
     bpf_program__set_pw(program_exit, &exit_info);
 
 
-    
     // Try and load this program
     // This should make the map we need
     if (bpf_object__load(prog)) {
         printf("Failed");
         return 0;
     }
+
+    int entry_fd = bpf_program__fd(program_entry);
+    int exit_fd = bpf_program__fd(program_exit);
+
+    __u64 syscalls[5] = {0, 1, 2, 3, 4};
+    __u64 len = 5;
+
+    union color_palette pal;
+    pal.entry_dep.syscalls = syscalls;
+    pal.entry_dep.syscalls_len = len;
+    
+    bpf_set_color_palette(&pal, ENTRY_DEP, entry_fd);
+    bpf_set_color_palette(&pal, ENTRY_DEP, exit_fd);
 
     struct bpf_map * map_hist = bpf_object__find_map_by_name(prog, "aq_alloc.bss");
     if (! map_hist) {
