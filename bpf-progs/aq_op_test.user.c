@@ -34,6 +34,8 @@ int main(int argc, char *argv[])
 
     struct bpf_program * program_entry = bpf_object__find_program_by_name(prog, entry);
 
+    bpf_object__set_flow_based(prog, true);
+
 
     // Try and load this program
     // This should make the map we need

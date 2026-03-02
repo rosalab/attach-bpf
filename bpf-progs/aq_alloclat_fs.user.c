@@ -142,8 +142,8 @@ int main(int argc, char *argv[])
     int entry_fd = bpf_program__fd(program_entry);
     int exit_fd = bpf_program__fd(program_exit);
 
-    __u64 syscalls[5] = {469};
-    __u64 len = 1;
+    __u64 syscalls[5] = {0, 1, 2, 3};
+    __u64 len = 4;
 
     union color_palette pal;
     pal.entry_dep.syscalls = syscalls;
