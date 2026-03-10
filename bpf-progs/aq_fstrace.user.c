@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
     exit_info.pw_state = BPF_PW_EXIT;
     exit_info.pw_stack_size = 8;
 
-    struct bpf_map * map_hist = bpf_object__find_map_by_name(prog, "fstrace.bss");
+    struct bpf_map * map_hist = bpf_object__find_map_by_name(prog, "aq_fstra.bss");
     //struct bpf_map * prefix = bpf_object__find_map_by_name(prog, "path");
 
 
@@ -166,7 +166,6 @@ int main(int argc, char *argv[])
     struct bpf_map * rb_map = bpf_object__find_map_by_name(prog, "rbuf");
     struct ring_buffer * rb = NULL;
 
-    rb = ring_buffer__new(bpf_map__fd(rb_map), handle_event, NULL, NULL);
 
     // Try and load this program
     // This should make the map we need
@@ -174,6 +173,8 @@ int main(int argc, char *argv[])
         printf("Failed");
         return 0;
     }
+
+    rb = ring_buffer__new(bpf_map__fd(rb_map), handle_event, NULL, NULL);
 
 
     int open_enter_fd = bpf_program__fd(trace_sys_open_enter);
@@ -216,17 +217,21 @@ int main(int argc, char *argv[])
     bpf_program__set_color(trace_sys_write_enter, 0x1, 0x2);
     bpf_program__set_color(trace_sys_write_exit, 0x1, 0x2);;
 
-    getchar();
+    bpf_set_color_palette(&pal1, PATH_DEP, open_enter_fd);
+    bpf_set_color_palette(&pal2, PATH_DEP, read_enter_fd);
+    bpf_set_color_palette(&pal3, PATH_DEP, write_enter_fd);
+
+    //getchar();
 
     bpf_program__attach_pw(trace_sys_open_enter, trace_sys_open_exit);
-    getchar();
+    //getchar();
     bpf_program__attach_pw(trace_sys_read_enter, trace_sys_read_exit);
-    getchar();
+    //getchar();
     bpf_program__attach_pw(trace_sys_write_enter, trace_sys_write_exit);
-    getchar();
+    //getchar();
 
 
-    getchar();
+    //getchar();
     __u8 one = 1;
     __u8 zero = 0;
     __u32 getcwd = 79;

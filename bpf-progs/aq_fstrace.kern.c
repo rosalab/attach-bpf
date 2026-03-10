@@ -162,7 +162,7 @@ int trace_sys_open_exit(void * ctx)
 
     u64 lat = ts - *start;
     u32 pid = bpf_get_current_pid_tgid() & 0xFFFFFFFF;
-    //bpf_printk("Opened\n");
+    ////bpf_printk("Opened\n");
     BPF_SNPRINTF(str, 128, "PID: %u opened file at %s took: %llu\n", pid, (u64)file, lat);
     bpf_ringbuf_output(&rbuf, &str, 128, 0);
     return 0;
