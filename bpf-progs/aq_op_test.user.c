@@ -53,8 +53,16 @@ int main(int argc, char *argv[])
     pal.entry_dep.syscalls = syscalls;
     pal.entry_dep.syscalls_len = len;
     
-    bpf_set_color_palette(&pal, ENTRY_DEP, entry_fd);
+    //bpf_set_color_palette(&pal, ENTRY_DEP, entry_fd);
 
+
+    union color_palette pal2;
+    pal2.path_dep.path_string = "/etc/\0";
+    pal2.path_dep.path_string_len = 6;
+    pal2.path_dep.location_string = "ksys_read\0";
+    pal2.path_dep.location_string_len = sizeof("ksys_read\0");
+    bpf_set_color_palette(&pal2, PATH_DEP, entry_fd);
+    
     bpf_program__set_color(program_entry, 0x1, 0x2);
 
     printf("PID: %d\n", getpid());
