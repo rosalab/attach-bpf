@@ -15,13 +15,13 @@ USER-CFLAGS := -g -I../linux/usr/include -I../linux/tools/lib/ -L../linux/tools/
 all: $(FILES) $(USER)
 	
 test: test.c
-	$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o test test.c
+	-$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o test test.c
 
 $(FILES) : %.o : %.c
-	$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o $@ $<
+	-$(BPF-CLANG) $(INCLUDE) $(BPF_CLANG_CFLAGS) -o $@ $<
 
 $(USER) : % : %.c
-	gcc $(USER-CFLAGS) $< -lbpf -o $@
+	-gcc $(USER-CFLAGS) $< -lbpf -o $@
 
 .PHONY : clean
 

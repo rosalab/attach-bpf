@@ -141,6 +141,42 @@ static inline int check_to_trace(int fd, char * str)
 //    //bpf_printk("Filename was %s\n", enter_ctx->filename);
 //    return 0;
 //}
+//__do_sys_empty_syscall
+
+SEC("fentry/__do_sys_empty_syscall")
+int trace_sys_empty_enter(void *ctx)
+{
+    //u64 *ts;
+    //ts = (u64 *)bpf_get_shared(ctx);
+    //*ts = bpf_ktime_get_ns();
+    //u64 ts;
+    //u32 tid = (u32) bpf_get_current_pid_tgid();
+    //ts = bpf_ktime_get_ns();
+    //bpf_map_update_elem(&starts, &tid, &ts, 0);
+    return 0;
+}
+
+SEC("fexit/__do_sys_empty_syscall")
+int trace_sys_empty_exit(void *ctx)
+{
+    //u64 ts = bpf_ktime_get_ns();
+    //u64 *start = (u64 *)bpf_get_shared(ctx);
+    //u64 delta;
+    //delta = ts - *start;
+    //u64 ts = bpf_ktime_get_ns();
+    //if (check_to_trace(ret_fd, file)) {
+    //u64 tgid = bpf_get_current_pid_tgid();
+    //u32 tid = (u32) tgid;
+    //u32 pid = tgid & 0xFFFFFFFF;
+    //u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
+    //u64 lat = 0;
+    //if (tsp != NULL) {
+    //    lat = ts - *tsp;
+    //}
+    //bpf_map_delete_elem(&starts, &tid);
+    return 0;
+}
+
 
 SEC("fentry/do_sys_openat2")
 int trace_sys_open_enter(void* ctx)
@@ -175,7 +211,7 @@ int trace_sys_open_exit(void * ctx)
         lat = ts - *tsp;
     }
     bpf_printk("Opened\n");
-    BPF_SNPRINTF(str, 128, "PID: %u opened file at %s took: %llu\n", pid, "", lat);
+    BPF_SNPRINTF(str, 128, "PID: %u opened file at %s took: %llu\n", pid, (u64)file, lat);
         //bpf_printk("%s\n", str);
     //long ret = 
     bpf_ringbuf_output(&rbuf, &str, 128, 0);
@@ -229,7 +265,7 @@ int trace_sys_read_exit(void * ctx)
     }
 
     //if (check_to_trace(fd, file)) {
-    BPF_SNPRINTF(str, 128, "PID: %u read file at %s took %llu\n", pid, "", lat);
+    BPF_SNPRINTF(str, 128, "PID: %u read file at %s took %llu\n", pid, (u64)file, lat);
     bpf_ringbuf_output(&rbuf, &str, 128, 0);
     bpf_map_delete_elem(&starts, &tid);
     //}
@@ -277,7 +313,7 @@ int trace_sys_write_exit(void * ctx)
         lat = ts - *tsp;
     }
     //if (check_to_trace(fd, file)) {
-    BPF_SNPRINTF(str, 128, "PID: %u wrote to file at %s took: %llu\n", pid, "", lat);
+    BPF_SNPRINTF(str, 128, "PID: %u wrote to file at %s took: %llu\n", pid, (u64)file, lat);
     bpf_ringbuf_output(&rbuf, &str, 128, 0);
     bpf_map_delete_elem(&starts, &tid);
     //}

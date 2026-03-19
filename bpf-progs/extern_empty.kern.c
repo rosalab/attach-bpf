@@ -171,147 +171,147 @@ int trace_sys_empty_exit(void *ctx)
 }
 
 
-SEC("fentry/do_sys_openat2")
-int trace_sys_open_enter(void* ctx)
-{
-    u64 ts;
-    u32 tid = (u32) bpf_get_current_pid_tgid();
-    ts = bpf_ktime_get_ns();
-    bpf_map_update_elem(&starts, &tid, &ts, 0);
-    return 0;
-}
-
-
-SEC("fexit/do_sys_openat2")
-int trace_sys_open_exit(void * ctx)
-{
-    u64 ret_fd;
-    char str[128];
-    char file[128];
-    // Get the fd we just opened
-    bpf_get_func_ret(ctx, &ret_fd);
-    if (!check_to_trace(ret_fd, file)) {
-        return 0;
-    }
-    u64 ts = bpf_ktime_get_ns();
-    //if (check_to_trace(ret_fd, file)) {
-    u64 tgid = bpf_get_current_pid_tgid();
-    u32 tid = (u32) tgid;
-    u32 pid = tgid & 0xFFFFFFFF;
-    u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
-    u64 lat = 0;
-    if (tsp != NULL) {
-        lat = ts - *tsp;
-    }
-    bpf_printk("Opened\n");
-    BPF_SNPRINTF(str, 128, "PID: %u opened file at %s took: %llu\n", pid, (u64)file, lat);
-        //bpf_printk("%s\n", str);
-    //long ret = 
-    bpf_ringbuf_output(&rbuf, &str, 128, 0);
-        //if (ret) {
-        //    bpf_printk("Error: %ld\n", ret);
-        //}
-        //bpf_printk("ringbuf ret was %ld\n");
-    //}
-    bpf_map_delete_elem(&starts, &tid);
-    return 0;
-}
-
-SEC("fentry/ksys_read")
-int trace_sys_read_enter(void* ctx)
-{
-    u64 fd;
-    u64 ts;
-    bpf_get_func_arg(ctx, 0, &fd);
-
-    char file[128];
-    if (!check_to_trace(fd, file)) {
-        return 0;
-    }
-    //if (check_to_trace(fd, file)) {
-    u32 tid = (u32) bpf_get_current_pid_tgid();
-    ts = bpf_ktime_get_ns();
-    bpf_map_update_elem(&starts, &tid, &ts, 0);
-    //}
-    return 0;
-}
-
-SEC("fexit/ksys_read")
-int trace_sys_read_exit(void * ctx)
-{
-    u64 fd;
-    char str[128];
-    char file[128];
-    bpf_get_func_arg(ctx, 0, &fd);
-    if (!check_to_trace(fd, file)) {
-        return 0;
-    }
-
-    u64 ts = bpf_ktime_get_ns();
-    u64 tgid = bpf_get_current_pid_tgid();
-    u32 tid = (u32) tgid;
-    u32 pid = tgid & 0xFFFFFFFF;
-    u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
-    u64 lat = 0;
-    if (tsp != NULL) {
-        lat = ts - *tsp;
-    }
-
-    //if (check_to_trace(fd, file)) {
-    BPF_SNPRINTF(str, 128, "PID: %u read file at %s took %llu\n", pid, (u64)file, lat);
-    bpf_ringbuf_output(&rbuf, &str, 128, 0);
-    bpf_map_delete_elem(&starts, &tid);
-    //}
-    return 0;
-}
-
-SEC("fentry/ksys_write")
-int trace_sys_write_enter(void* ctx)
-{
-    u64 fd;
-    u64 ts;
-    bpf_get_func_arg(ctx, 0, &fd);
-
-    char file[128];
-    if (!check_to_trace(fd, file)) {
-        return 0;
-    }
-    //if (check_to_trace(fd, file)) {
-    u32 tid = (u32) bpf_get_current_pid_tgid();
-    ts = bpf_ktime_get_ns();
-    bpf_map_update_elem(&starts, &tid, &ts, 0);
-    //}
-    return 0;
-}
-
-
-SEC("fexit/ksys_write")
-int trace_sys_write_exit(void * ctx)
-{
-    u64 fd;
-    char str[128];
-    char file[128];
-    bpf_get_func_arg(ctx, 0, &fd);
-    if (!check_to_trace(fd, file)) {
-        return 0;
-    }
-    
-    u64 ts = bpf_ktime_get_ns();
-    u64 tgid = bpf_get_current_pid_tgid();
-    u32 tid = (u32) tgid;
-    u32 pid = tgid & 0xFFFFFFFF;
-    u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
-    u64 lat = 0;
-    if (tsp != NULL) {
-        lat = ts - *tsp;
-    }
-    //if (check_to_trace(fd, file)) {
-    BPF_SNPRINTF(str, 128, "PID: %u wrote to file at %s took: %llu\n", pid, (u64)file, lat);
-    bpf_ringbuf_output(&rbuf, &str, 128, 0);
-    bpf_map_delete_elem(&starts, &tid);
-    //}
-    return 0;
-}
+//SEC("fentry/do_sys_openat2")
+//int trace_sys_open_enter(void* ctx)
+//{
+//    u64 ts;
+//    u32 tid = (u32) bpf_get_current_pid_tgid();
+//    ts = bpf_ktime_get_ns();
+//    bpf_map_update_elem(&starts, &tid, &ts, 0);
+//    return 0;
+//}
+//
+//
+//SEC("fexit/do_sys_openat2")
+//int trace_sys_open_exit(void * ctx)
+//{
+//    u64 ret_fd;
+//    char str[128];
+//    char file[128];
+//    // Get the fd we just opened
+//    bpf_get_func_ret(ctx, &ret_fd);
+//    if (!check_to_trace(ret_fd, file)) {
+//        return 0;
+//    }
+//    u64 ts = bpf_ktime_get_ns();
+//    //if (check_to_trace(ret_fd, file)) {
+//    u64 tgid = bpf_get_current_pid_tgid();
+//    u32 tid = (u32) tgid;
+//    u32 pid = tgid & 0xFFFFFFFF;
+//    u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
+//    u64 lat = 0;
+//    if (tsp != NULL) {
+//        lat = ts - *tsp;
+//    }
+//    bpf_printk("Opened\n");
+//    BPF_SNPRINTF(str, 128, "PID: %u opened file at %s took: %llu\n", pid, (u64)file, lat);
+//        //bpf_printk("%s\n", str);
+//    //long ret = 
+//    bpf_ringbuf_output(&rbuf, &str, 128, 0);
+//        //if (ret) {
+//        //    bpf_printk("Error: %ld\n", ret);
+//        //}
+//        //bpf_printk("ringbuf ret was %ld\n");
+//    //}
+//    bpf_map_delete_elem(&starts, &tid);
+//    return 0;
+//}
+//
+//SEC("fentry/ksys_read")
+//int trace_sys_read_enter(void* ctx)
+//{
+//    u64 fd;
+//    u64 ts;
+//    bpf_get_func_arg(ctx, 0, &fd);
+//
+//    char file[128];
+//    if (!check_to_trace(fd, file)) {
+//        return 0;
+//    }
+//    //if (check_to_trace(fd, file)) {
+//    u32 tid = (u32) bpf_get_current_pid_tgid();
+//    ts = bpf_ktime_get_ns();
+//    bpf_map_update_elem(&starts, &tid, &ts, 0);
+//    //}
+//    return 0;
+//}
+//
+//SEC("fexit/ksys_read")
+//int trace_sys_read_exit(void * ctx)
+//{
+//    u64 fd;
+//    char str[128];
+//    char file[128];
+//    bpf_get_func_arg(ctx, 0, &fd);
+//    if (!check_to_trace(fd, file)) {
+//        return 0;
+//    }
+//
+//    u64 ts = bpf_ktime_get_ns();
+//    u64 tgid = bpf_get_current_pid_tgid();
+//    u32 tid = (u32) tgid;
+//    u32 pid = tgid & 0xFFFFFFFF;
+//    u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
+//    u64 lat = 0;
+//    if (tsp != NULL) {
+//        lat = ts - *tsp;
+//    }
+//
+//    //if (check_to_trace(fd, file)) {
+//    BPF_SNPRINTF(str, 128, "PID: %u read file at %s took %llu\n", pid, (u64)file, lat);
+//    bpf_ringbuf_output(&rbuf, &str, 128, 0);
+//    bpf_map_delete_elem(&starts, &tid);
+//    //}
+//    return 0;
+//}
+//
+//SEC("fentry/ksys_write")
+//int trace_sys_write_enter(void* ctx)
+//{
+//    u64 fd;
+//    u64 ts;
+//    bpf_get_func_arg(ctx, 0, &fd);
+//
+//    char file[128];
+//    if (!check_to_trace(fd, file)) {
+//        return 0;
+//    }
+//    //if (check_to_trace(fd, file)) {
+//    u32 tid = (u32) bpf_get_current_pid_tgid();
+//    ts = bpf_ktime_get_ns();
+//    bpf_map_update_elem(&starts, &tid, &ts, 0);
+//    //}
+//    return 0;
+//}
+//
+//
+//SEC("fexit/ksys_write")
+//int trace_sys_write_exit(void * ctx)
+//{
+//    u64 fd;
+//    char str[128];
+//    char file[128];
+//    bpf_get_func_arg(ctx, 0, &fd);
+//    if (!check_to_trace(fd, file)) {
+//        return 0;
+//    }
+//    
+//    u64 ts = bpf_ktime_get_ns();
+//    u64 tgid = bpf_get_current_pid_tgid();
+//    u32 tid = (u32) tgid;
+//    u32 pid = tgid & 0xFFFFFFFF;
+//    u64 * tsp = bpf_map_lookup_elem(&starts, &tid);
+//    u64 lat = 0;
+//    if (tsp != NULL) {
+//        lat = ts - *tsp;
+//    }
+//    //if (check_to_trace(fd, file)) {
+//    BPF_SNPRINTF(str, 128, "PID: %u wrote to file at %s took: %llu\n", pid, (u64)file, lat);
+//    bpf_ringbuf_output(&rbuf, &str, 128, 0);
+//    bpf_map_delete_elem(&starts, &tid);
+//    //}
+//    return 0;
+//}
 
 
 //SEC("tp/syscalls/sys_exit_open")

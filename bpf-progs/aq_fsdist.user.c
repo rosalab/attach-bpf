@@ -92,7 +92,7 @@ int main()
 {
     LIBBPF_OPTS(bpf_object_open_opts, open_opts);
     open_opts.pw = true;
-    struct bpf_object * prog = bpf_object__open_file("./pw_fsdist.kern.o\0", &open_opts);
+    struct bpf_object * prog = bpf_object__open_file("./aq_fsdist.kern.o\0", &open_opts);
     
     struct bpf_program * p_read_fentry = bpf_object__find_program_by_name(prog, "file_read_fentry");
     struct bpf_program * p_write_fentry = bpf_object__find_program_by_name(prog, "file_write_fentry");
@@ -139,7 +139,7 @@ int main()
 
     bpf_object__load(prog);
 
-    struct bpf_map * map_hists = bpf_object__find_map_by_name(prog, "pw_fsdis.bss");
+    struct bpf_map * map_hists = bpf_object__find_map_by_name(prog, "aq_fsdis.bss");
     if (!hists) {
         printf("Not found bss hists\n");
     }

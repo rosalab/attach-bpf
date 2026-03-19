@@ -15,7 +15,7 @@ uint64_t run()
     for (int i = 0; i < 1000000; i++) {
        //read(fd, buf, 128);
        //open("/dev/null", O_RDONLY, 0);
-       syscall(467);
+       syscall(470);
        //getcwd(buf, 256);
     }
     clock_gettime(CLOCK_MONOTONIC_RAW, &end);

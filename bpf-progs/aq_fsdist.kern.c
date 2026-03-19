@@ -71,61 +71,71 @@ cleanup:
 	return 0;
 }
 
-SEC("fentry/ext4_file_read_iter")
+//SEC("fentry/ext4_file_read_iter")
+SEC("fentry/ksys_read")
 int BPF_PROG(file_read_fentry)
 {
 	return probe_entry(ctx);
 }
 
-SEC("fexit/ext4_file_read_iter")
+//SEC("fexit/ext4_file_read_iter")
+SEC("fexit/ksys_read")
 int BPF_PROG(file_read_fexit)
 {
 	return probe_return(ctx, F_READ);
 }
 
-SEC("fentry/ext4_file_write_iter")
+//SEC("fentry/ext4_file_write_iter")
+SEC("fentry/ksys_write")
 int BPF_PROG(file_write_fentry)
 {
 	return probe_entry(ctx);
 }
 
-SEC("fexit/ext4_file_write_iter")
+//SEC("fexit/ext4_file_write_iter")
+SEC("fentry/ksys_write")
 int BPF_PROG(file_write_fexit)
 {
 	return probe_return(ctx, F_WRITE);
 }
 
-SEC("fentry/ext4_file_open")
+//SEC("fentry/ext4_file_open")
+SEC("fentry/do_sys_openat2")
 int BPF_PROG(file_open_fentry)
 {
 	return probe_entry(ctx);
 }
 
-SEC("fexit/ext4_file_open")
+//SEC("fexit/ext4_file_open")
+SEC("fentry/do_sys_openat2")
 int BPF_PROG(file_open_fexit)
 {
 	return probe_return(ctx, F_OPEN);
 }
 
-SEC("fentry/ext4_sync_file")
+//SEC("fentry/ext4_sync_file")
+SEC("fentry/__do_sys_sync")
 int BPF_PROG(file_sync_fentry)
 {
 	return probe_entry(ctx);
 }
 
-SEC("fexit/ext4_sync_file")
+//SEC("fexit/ext4_sync_file")
+SEC("fentry/__do_sys_sync")
 int BPF_PROG(file_sync_fexit)
 {
 	return probe_return(ctx, F_FSYNC);
 }
 
-SEC("fentry/ext4_file_getattr")
+//SEC("fentry/ext4_file_getattr")
+SEC("fentry/vfs_getattr")
 int BPF_PROG(getattr_fentry)
 {
 	return probe_entry(ctx);
 }
 
-SEC("fexit/ext4_file_getattr")
+//SEC("fexit/ext4_file_getattr")
+SEC("fentry/vfs_getattr")
 int BPF_PROG(getattr_fexit)
 {
 	return probe_return(ctx, F_GETATTR);
