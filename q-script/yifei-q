@@ -82,7 +82,7 @@ host() {
 		$net \
 		$QEMUARG \
 		-kernel "$kernel" \
-		-append "$cmdline" -s
+		-append "$cmdline" -s 
 
 }
 
@@ -258,6 +258,7 @@ eval \$(resize)
 EOF
 
 	cd linux-dev-env 
+    export LD_LIBRARY_PATH=/linux-dev-env/linux/tools/lib/bpf/
 
 	if [ -n "$ARGS" ]; then
 		say non-interactive bash script
@@ -285,7 +286,7 @@ CMDLINE=""
 QEMUARG=""
 
 NRCPU=4
-MEMORY=2048
+MEMORY=16000
 
 while getopts "hgmsk:c:a:H:N:M:q:" opt; do
 	case $opt in

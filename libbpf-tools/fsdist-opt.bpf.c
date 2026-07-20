@@ -24,28 +24,26 @@ static int probe_entry(void * ctx)
 {
 	__u64 pid_tgid = bpf_get_current_pid_tgid();
 	__u32 pid = pid_tgid >> 32;
-	__u32 tid = (__u32)pid_tgid;
-	__u64 ts;
+	__u64 *ts;
 
 	if (target_pid && target_pid != pid)
 		return 0;
 
-	ts = bpf_ktime_get_ns();
-    bpf_set_shared(ctx, &ts);
+    ts = (__u64 *)bpf_get_shared(ctx);
+    *ts = bpf_ktime_get_ns();
 	//bpf_map_update_elem(&starts, &tid, &ts, BPF_ANY);
 	return 0;
 }
 
 static int probe_return(void * ctx, enum fs_file_op op)
 {
-	__u32 tid = (__u32)bpf_get_current_pid_tgid();
 	__u64 ts = bpf_ktime_get_ns();
-    __u64 tsp;
+    __u64 *tsp;
 	__u64 slot;
 	__s64 delta;
 
     
-    bpf_get_shared(ctx, &tsp);
+    tsp = (__u64*)bpf_get_shared(ctx);
 	//tsp = bpf_map_lookup_elem(&starts, &tid);
 	//if (!tsp)
 	//	return 0;
@@ -53,7 +51,7 @@ static int probe_return(void * ctx, enum fs_file_op op)
 	if (op >= F_MAX_OP)
 		goto cleanup;
 
-	delta = (__s64)(ts - tsp);
+	delta = (__s64)(ts - *tsp);
 	if (delta < 0)
 		goto cleanup;
 

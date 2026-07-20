@@ -6,6 +6,8 @@
 
 #include <gelf.h>
 
+#include <udis86.h>
+
 void display_bytes(char *bytes, int len)
 {
     char * p = bytes;
@@ -16,7 +18,7 @@ void display_bytes(char *bytes, int len)
     printf("\n");
 }
 
-void extract_bytes(int fd, char **bytes, int *len)
+void extract_bytes(int fd, char **bytes, int *len, char *secname)
 {
     Elf *e;
     Elf_Scn *scn;
@@ -33,7 +35,7 @@ void extract_bytes(int fd, char **bytes, int *len)
     while ((scn = elf_nextscn(e, scn)) != NULL) {
         gelf_getshdr(scn, &shdr);
         name = elf_strptr(e, shstrndx, shdr.sh_name);
-        if (!strcmp(name, ".text\0")) {
+        if (!strcmp(name, secname)) {
             printf("name is %s\n", name);
             printf("section header size: %lu\n", shdr.sh_size);
 
@@ -48,7 +50,6 @@ void extract_bytes(int fd, char **bytes, int *len)
             printf("len: %lu\n", data->d_size);
             *len = data->d_size;
             memcpy(*bytes, p, data->d_size);
-            printf("Found .text section\n");
             display_bytes(p, data->d_size);
             break;
         }
@@ -81,9 +82,20 @@ int main(int argc, char *argv[])
     int entry_fd = open(argv[2], O_RDONLY);
     int exit_fd = open(argv[3], O_RDONLY);
 
-    extract_bytes(main_fd, &main, &main_len);
-    extract_bytes(entry_fd, &entry, &entry_len);
-    extract_bytes(exit_fd, &exit, &exit_len);
+    extract_bytes(main_fd, &main, &main_len, "MYFUN\0");
+    extract_bytes(entry_fd, &entry, &entry_len, ".text\0");
+    extract_bytes(exit_fd, &exit, &exit_len, ".text\0");
+
+    ud_t ud;
+    ud_init(&ud);
+    ud_set_input_buffer(&ud, main, main_len);
+    ud_set_mode(&ud, 64);
+    ud_set_syntax(&ud, UD_SYN_INTEL);
+
+    while (ud_disassemble(&ud)) {
+        //printf("\t%s\n", ud_lookup_mnemonic(ud_insn_mnemonic(&ud)));
+        printf("\t%s\n", ud_insn_asm(&ud));
+    }
 
     display_bytes(main, main_len);
     display_bytes(entry, entry_len);

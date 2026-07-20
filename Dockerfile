@@ -22,3 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install --fix-missing -y git build-es
  iputils-ping kmod \
 clang-format clang-tidy clang-tools clang clangd libc++-dev libc++1 libc++abi-dev libc++abi1 libclang-dev libclang1 liblldb-dev libllvm-ocaml-dev libomp-dev libomp5 lld lldb llvm-dev llvm-runtime llvm python3-clang
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update & apt-get upgrade -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y zip bison build-essential cmake flex git libedit-dev \
+  libllvm18 llvm-18-dev libclang-18-dev python3 zlib1g-dev libelf-dev libfl-dev python3-setuptools \
+  liblzma-dev libdebuginfod-dev arping netperf iperf libpolly-18-dev

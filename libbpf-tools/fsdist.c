@@ -39,6 +39,7 @@ enum fs_type {
 	F2FS,
 	BCACHEFS,
 	ZFS,
+    AQ,
 };
 
 static struct fs_config {
@@ -94,6 +95,13 @@ static struct fs_config {
 		[F_FSYNC] = "zpl_fsync",
 		[F_GETATTR] = NULL, /* not supported */
 	}},
+    [AQ] = { "aq", {
+        [F_READ] = "ksys_read",
+        [F_WRITE] = "ksys_write",
+        [F_OPEN] = "do_sys_openat2",
+        [F_FSYNC] = "__do_sys_sync",
+        [F_GETATTR] = "vfs_getattr",
+    }},
 };
 
 static char *file_op_names[] = {
@@ -169,7 +177,9 @@ static error_t parse_arg(int key, char *arg, struct argp_state *state)
 			fs_type = BCACHEFS;
 		} else if (!strcmp(arg, "zfs")) {
 			fs_type = ZFS;
-		} else {
+		} else if (!strcmp(arg, "aq")) {
+            fs_type = AQ;
+        } else {
 			warn("invalid filesystem\n");
 			argp_usage(state);
 		}

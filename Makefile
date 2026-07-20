@@ -3,7 +3,7 @@ LINUX ?= ${BASE_PROJ}/linux
 SSH_PORT ?= "64000"
 NET_PORT ?= "64001"
 GDB_PORT ?= "64002"
-DOCKER ?= dynamic-cg
+DOCKER ?= attach-bpf
 .ALWAYS:
 
 all: vmlinux 

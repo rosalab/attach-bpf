@@ -1,3 +1,5 @@
 entry
 exit
 inliner
+entry-elf
+exit-elf

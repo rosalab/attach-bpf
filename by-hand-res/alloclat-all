@@ -1,0 +1,590 @@
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:35:09 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1360084.12 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1359355.99 kB/sec
+	Min throughput per process 			= 1360084.12 kB/sec 
+	Max throughput per process 			= 1360084.12 kB/sec
+	Avg throughput per process 			= 1360084.12 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1774107.75 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1773016.36 kB/sec
+	Min throughput per process 			= 1774107.75 kB/sec 
+	Max throughput per process 			= 1774107.75 kB/sec
+	Avg throughput per process 			= 1774107.75 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1154713.62 kB/sec
+	Parent sees throughput for 1 random readers 	= 1153988.30 kB/sec
+	Min throughput per process 			= 1154713.62 kB/sec 
+	Max throughput per process 			= 1154713.62 kB/sec
+	Avg throughput per process 			= 1154713.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  917919.19 kB/sec
+	Parent sees throughput for 1 random writers 	=  917495.29 kB/sec
+	Min throughput per process 			=  917919.19 kB/sec 
+	Max throughput per process 			=  917919.19 kB/sec
+	Avg throughput per process 			=  917919.19 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:35:29 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1360271.25 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1359576.19 kB/sec
+	Min throughput per process 			= 1360271.25 kB/sec 
+	Max throughput per process 			= 1360271.25 kB/sec
+	Avg throughput per process 			= 1360271.25 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1730406.75 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1729376.62 kB/sec
+	Min throughput per process 			= 1730406.75 kB/sec 
+	Max throughput per process 			= 1730406.75 kB/sec
+	Avg throughput per process 			= 1730406.75 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1155538.62 kB/sec
+	Parent sees throughput for 1 random readers 	= 1154798.83 kB/sec
+	Min throughput per process 			= 1155538.62 kB/sec 
+	Max throughput per process 			= 1155538.62 kB/sec
+	Avg throughput per process 			= 1155538.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  913584.62 kB/sec
+	Parent sees throughput for 1 random writers 	=  913125.61 kB/sec
+	Min throughput per process 			=  913584.62 kB/sec 
+	Max throughput per process 			=  913584.62 kB/sec
+	Avg throughput per process 			=  913584.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:35:50 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1363715.62 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1362987.38 kB/sec
+	Min throughput per process 			= 1363715.62 kB/sec 
+	Max throughput per process 			= 1363715.62 kB/sec
+	Avg throughput per process 			= 1363715.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1742162.38 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1741031.23 kB/sec
+	Min throughput per process 			= 1742162.38 kB/sec 
+	Max throughput per process 			= 1742162.38 kB/sec
+	Avg throughput per process 			= 1742162.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1141470.12 kB/sec
+	Parent sees throughput for 1 random readers 	= 1140784.41 kB/sec
+	Min throughput per process 			= 1141470.12 kB/sec 
+	Max throughput per process 			= 1141470.12 kB/sec
+	Avg throughput per process 			= 1141470.12 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  907794.12 kB/sec
+	Parent sees throughput for 1 random writers 	=  907371.08 kB/sec
+	Min throughput per process 			=  907794.12 kB/sec 
+	Max throughput per process 			=  907794.12 kB/sec
+	Avg throughput per process 			=  907794.12 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:36:11 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1348625.00 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1347938.02 kB/sec
+	Min throughput per process 			= 1348625.00 kB/sec 
+	Max throughput per process 			= 1348625.00 kB/sec
+	Avg throughput per process 			= 1348625.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1707264.62 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1706042.09 kB/sec
+	Min throughput per process 			= 1707264.62 kB/sec 
+	Max throughput per process 			= 1707264.62 kB/sec
+	Avg throughput per process 			= 1707264.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1119521.12 kB/sec
+	Parent sees throughput for 1 random readers 	= 1118829.39 kB/sec
+	Min throughput per process 			= 1119521.12 kB/sec 
+	Max throughput per process 			= 1119521.12 kB/sec
+	Avg throughput per process 			= 1119521.12 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  889104.38 kB/sec
+	Parent sees throughput for 1 random writers 	=  888638.80 kB/sec
+	Min throughput per process 			=  889104.38 kB/sec 
+	Max throughput per process 			=  889104.38 kB/sec
+	Avg throughput per process 			=  889104.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:36:32 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1342181.12 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1341602.12 kB/sec
+	Min throughput per process 			= 1342181.12 kB/sec 
+	Max throughput per process 			= 1342181.12 kB/sec
+	Avg throughput per process 			= 1342181.12 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1704242.00 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1703276.33 kB/sec
+	Min throughput per process 			= 1704242.00 kB/sec 
+	Max throughput per process 			= 1704242.00 kB/sec
+	Avg throughput per process 			= 1704242.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1128710.00 kB/sec
+	Parent sees throughput for 1 random readers 	= 1128007.98 kB/sec
+	Min throughput per process 			= 1128710.00 kB/sec 
+	Max throughput per process 			= 1128710.00 kB/sec
+	Avg throughput per process 			= 1128710.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  892435.38 kB/sec
+	Parent sees throughput for 1 random writers 	=  892006.44 kB/sec
+	Min throughput per process 			=  892435.38 kB/sec 
+	Max throughput per process 			=  892435.38 kB/sec
+	Avg throughput per process 			=  892435.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:36:53 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1343153.75 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1342520.69 kB/sec
+	Min throughput per process 			= 1343153.75 kB/sec 
+	Max throughput per process 			= 1343153.75 kB/sec
+	Avg throughput per process 			= 1343153.75 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1704425.62 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1703337.02 kB/sec
+	Min throughput per process 			= 1704425.62 kB/sec 
+	Max throughput per process 			= 1704425.62 kB/sec
+	Avg throughput per process 			= 1704425.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1130155.00 kB/sec
+	Parent sees throughput for 1 random readers 	= 1129450.30 kB/sec
+	Min throughput per process 			= 1130155.00 kB/sec 
+	Max throughput per process 			= 1130155.00 kB/sec
+	Avg throughput per process 			= 1130155.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  895769.31 kB/sec
+	Parent sees throughput for 1 random writers 	=  895331.17 kB/sec
+	Min throughput per process 			=  895769.31 kB/sec 
+	Max throughput per process 			=  895769.31 kB/sec
+	Avg throughput per process 			=  895769.31 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:37:14 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1357608.38 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1356872.39 kB/sec
+	Min throughput per process 			= 1357608.38 kB/sec 
+	Max throughput per process 			= 1357608.38 kB/sec
+	Avg throughput per process 			= 1357608.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1725520.00 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1724418.59 kB/sec
+	Min throughput per process 			= 1725520.00 kB/sec 
+	Max throughput per process 			= 1725520.00 kB/sec
+	Avg throughput per process 			= 1725520.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1154881.62 kB/sec
+	Parent sees throughput for 1 random readers 	= 1154162.43 kB/sec
+	Min throughput per process 			= 1154881.62 kB/sec 
+	Max throughput per process 			= 1154881.62 kB/sec
+	Avg throughput per process 			= 1154881.62 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  910589.00 kB/sec
+	Parent sees throughput for 1 random writers 	=  910072.00 kB/sec
+	Min throughput per process 			=  910589.00 kB/sec 
+	Max throughput per process 			=  910589.00 kB/sec
+	Avg throughput per process 			=  910589.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:37:34 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1355998.50 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1355267.64 kB/sec
+	Min throughput per process 			= 1355998.50 kB/sec 
+	Max throughput per process 			= 1355998.50 kB/sec
+	Avg throughput per process 			= 1355998.50 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1728113.38 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1725952.05 kB/sec
+	Min throughput per process 			= 1728113.38 kB/sec 
+	Max throughput per process 			= 1728113.38 kB/sec
+	Avg throughput per process 			= 1728113.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1128201.00 kB/sec
+	Parent sees throughput for 1 random readers 	= 1127476.77 kB/sec
+	Min throughput per process 			= 1128201.00 kB/sec 
+	Max throughput per process 			= 1128201.00 kB/sec
+	Avg throughput per process 			= 1128201.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  863267.81 kB/sec
+	Parent sees throughput for 1 random writers 	=  862759.30 kB/sec
+	Min throughput per process 			=  863267.81 kB/sec 
+	Max throughput per process 			=  863267.81 kB/sec
+	Avg throughput per process 			=  863267.81 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:37:55 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1351279.00 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1350479.79 kB/sec
+	Min throughput per process 			= 1351279.00 kB/sec 
+	Max throughput per process 			= 1351279.00 kB/sec
+	Avg throughput per process 			= 1351279.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1916299.38 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1914976.01 kB/sec
+	Min throughput per process 			= 1916299.38 kB/sec 
+	Max throughput per process 			= 1916299.38 kB/sec
+	Avg throughput per process 			= 1916299.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1192329.12 kB/sec
+	Parent sees throughput for 1 random readers 	= 1191602.93 kB/sec
+	Min throughput per process 			= 1192329.12 kB/sec 
+	Max throughput per process 			= 1192329.12 kB/sec
+	Avg throughput per process 			= 1192329.12 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  937807.00 kB/sec
+	Parent sees throughput for 1 random writers 	=  937388.46 kB/sec
+	Min throughput per process 			=  937807.00 kB/sec 
+	Max throughput per process 			=  937807.00 kB/sec
+	Avg throughput per process 			=  937807.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.
+	Iozone: Performance Test of File I/O
+	        Version $Revision: 3.507 $
+		Compiled for 64 bit mode.
+		Build: linux-AMD64 
+
+	Contributors:William Norcott, Don Capps, Isom Crawford, Kirby Collins
+	             Al Slater, Scott Rhine, Mike Wisner, Ken Goss
+	             Steve Landherr, Brad Smith, Mark Kelly, Dr. Alain CYR,
+	             Randy Dunlap, Mark Montague, Dan Million, Gavin Brebner,
+	             Jean-Marc Zucconi, Jeff Blomberg, Benny Halevy, Dave Boone,
+	             Erik Habbinga, Kris Strecker, Walter Wong, Joshua Root,
+	             Fabrice Bacchella, Zhenghua Xue, Qin Li, Darren Sawyer,
+	             Vangel Bojaxhi, Ben England, Vikentsi Lapa,
+	             Alexey Skidanov, Sudhir Kumar.
+
+	Run began: Tue Dec 16 16:38:16 2025
+
+	Record Size 1 kB
+	File size set to 1048576 kB
+	Command line used: ./iozone -t1 -i0 -i2 -r1k -s1g -F /etc/testfile
+	Output is in kBytes/sec
+	Time Resolution = 0.000001 seconds.
+	Processor cache size set to 1024 kBytes.
+	Processor cache line size set to 32 bytes.
+	File stride size set to 17 * record size.
+	Throughput test with 1 process
+	Each process writes a 1048576 kByte file in 1 kByte records
+
+	Children see throughput for  1 initial writers 	= 1344102.38 kB/sec
+	Parent sees throughput for  1 initial writers 	= 1342422.75 kB/sec
+	Min throughput per process 			= 1344102.38 kB/sec 
+	Max throughput per process 			= 1344102.38 kB/sec
+	Avg throughput per process 			= 1344102.38 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for  1 rewriters 	= 1760824.00 kB/sec
+	Parent sees throughput for  1 rewriters 	= 1759748.07 kB/sec
+	Min throughput per process 			= 1760824.00 kB/sec 
+	Max throughput per process 			= 1760824.00 kB/sec
+	Avg throughput per process 			= 1760824.00 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random readers 	= 1131577.25 kB/sec
+	Parent sees throughput for 1 random readers 	= 1130823.04 kB/sec
+	Min throughput per process 			= 1131577.25 kB/sec 
+	Max throughput per process 			= 1131577.25 kB/sec
+	Avg throughput per process 			= 1131577.25 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+	Children see throughput for 1 random writers 	=  897778.75 kB/sec
+	Parent sees throughput for 1 random writers 	=  897324.13 kB/sec
+	Min throughput per process 			=  897778.75 kB/sec 
+	Max throughput per process 			=  897778.75 kB/sec
+	Avg throughput per process 			=  897778.75 kB/sec
+	Min xfer 					= 1048576.00 kB
+
+
+
+iozone test complete.

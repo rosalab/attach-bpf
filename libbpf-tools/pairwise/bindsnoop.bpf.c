@@ -53,7 +53,8 @@ static int probe_entry(struct pt_regs *ctx, struct socket *socket)
 	if (target_pid && target_pid != pid)
 		return 0;
 
-	bpf_map_update_elem(&sockets, &tid, &socket, BPF_ANY);
+    bpf_set_shared(ctx, &socket);
+	//bpf_map_update_elem(&sockets, &tid, &socket, BPF_ANY);
 	return 0;
 };
 
@@ -70,7 +71,8 @@ static int probe_exit(struct pt_regs *ctx, short ver)
 	__u16 sport = 0, *port;
 	int ret;
 
-	socketp = bpf_map_lookup_elem(&sockets, &tid);
+	//socketp = bpf_map_lookup_elem(&sockets, &tid);
+    bpf_get_shared(ctx, socketp);
 	if (!socketp)
 		return 0;
 
